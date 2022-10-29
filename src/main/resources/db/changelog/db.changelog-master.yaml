@@ -1,0 +1,17 @@
+#databaseChangeLog:
+#    - includeAll:
+#          path: /db/changelog/changes/
+# removed to have the full control or the execution order
+databaseChangeLog:
+    - include:
+          file: /db/changelog/changes/1_CREATE_USER_TABLE.sql
+    - include:
+          file: /db/changelog/changes/2_ADD_DUMMY_USERS.sql
+    - include:
+          file: /db/changelog/changes/3_CREATE_POST_TABLE.sql
+    - include:
+          file: /db/changelog/changes/4_ADD_DUMMY_POSTS.sql
+    - include:
+          file: /db/changelog/changes/5_CREATE_COMMENT_TABLE.sql
+    - include:
+          file: /db/changelog/changes/6_ADD_DUMMY_COMMENTS.sql
