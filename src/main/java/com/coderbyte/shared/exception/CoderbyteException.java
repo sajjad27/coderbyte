@@ -38,6 +38,10 @@ public class CoderbyteException extends RuntimeException {
 		this.errors.set(0, new ErrorWrapper(errorCode, new ArrayList<KeyValue>(Arrays.asList(keysValues)), field));
 	}
 	
+	public CoderbyteException(String errorCode, KeyValue keysValues) {
+		this.errors.set(0, new ErrorWrapper(errorCode, new ArrayList<KeyValue>(Arrays.asList(keysValues)), null));
+	}
+	
 	
 
 	public List<ErrorWrapper> getErrors() {

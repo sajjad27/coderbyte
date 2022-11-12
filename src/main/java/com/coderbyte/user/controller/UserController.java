@@ -22,9 +22,4 @@ public class UserController {
 	public ResponseEntity<?> getAll() throws Exception {
 		return ResponseEntity.ok(this.userService.getAll());
 	}
-	
-	@RequestMapping(value = "/{userId}/posts", method = RequestMethod.GET)
-	public ResponseEntity<?> getPostsForSingleUser(@PathVariable("userId") String userId) throws Exception {
-		return ResponseEntity.ok(this.userService.getPostsForSingleUser(userId));
-	}
 }

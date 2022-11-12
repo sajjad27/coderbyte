@@ -58,11 +58,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/auth/refreshtoken",
+							"raw": "{{baseUrl}}/public/v2/auth/refreshtoken",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"public",
+								"v2",
 								"auth",
 								"refreshtoken"
 							]
@@ -89,14 +91,7 @@
 					],
 					"request": {
 						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "",
-									"type": "string"
-								}
-							]
+							"type": "basic"
 						},
 						"method": "POST",
 						"header": [
@@ -109,7 +104,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\":\"girika\",\r\n    \"password\": \"pass@123\"\r\n}",
+							"raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\": \"admin\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -193,7 +188,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI3IiwiaXNSZWZyZXNoVG9rZW4iOmZhbHNlLCJleHAiOjE2NjcwNTg1MDgsImlhdCI6MTY2NzAzOTcwOH0.fOMZKrz34c3GK9aAS5uKT5XK3tDir8dKwPopZLMZjE9MYEYbEUapCyoOBTGn6AcQdT_jsDxCzB0DlXSvxxipXA",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -234,7 +229,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI3IiwiaXNSZWZyZXNoVG9rZW4iOmZhbHNlLCJleHAiOjE2NjcwNTg1MDgsImlhdCI6MTY2NzAzOTcwOH0.fOMZKrz34c3GK9aAS5uKT5XK3tDir8dKwPopZLMZjE9MYEYbEUapCyoOBTGn6AcQdT_jsDxCzB0DlXSvxxipXA",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -251,16 +246,20 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/public/v2/users/3/posts",
+							"raw": "{{baseUrl}}/public/v2/posts?user_id=4697",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"public",
 								"v2",
-								"users",
-								"3",
 								"posts"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "4697"
+								}
 							]
 						}
 					},
@@ -282,7 +281,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI3IiwiaXNSZWZyZXNoVG9rZW4iOmZhbHNlLCJleHAiOjE2NjcwNTg1MDgsImlhdCI6MTY2NzAzOTcwOH0.fOMZKrz34c3GK9aAS5uKT5XK3tDir8dKwPopZLMZjE9MYEYbEUapCyoOBTGn6AcQdT_jsDxCzB0DlXSvxxipXA",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -313,7 +312,7 @@
 					"response": []
 				},
 				{
-					"name": "get all comments Copy",
+					"name": "get comments for single post",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -323,7 +322,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI3IiwiaXNSZWZyZXNoVG9rZW4iOmZhbHNlLCJleHAiOjE2NjcwNTg1MDgsImlhdCI6MTY2NzAzOTcwOH0.fOMZKrz34c3GK9aAS5uKT5XK3tDir8dKwPopZLMZjE9MYEYbEUapCyoOBTGn6AcQdT_jsDxCzB0DlXSvxxipXA",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -340,16 +339,20 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/public/v2/posts/777/comments",
+							"raw": "{{baseUrl}}/public/v2/comments?post_id=777",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"public",
 								"v2",
-								"posts",
-								"777",
 								"comments"
+							],
+							"query": [
+								{
+									"key": "post_id",
+									"value": "777"
+								}
 							]
 						}
 					},

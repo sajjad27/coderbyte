@@ -1,9 +1,9 @@
 package com.coderbyte.shared.exception;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
@@ -82,12 +82,14 @@ public class ControllerAdvisor {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
 	public ErrorResponse handleNumberFormatException(MethodArgumentTypeMismatchException ex) {		
-		List<String> expectedAndFoundTypes = RegexHelper.getTextBetweenByChar(ex.getMessage(), '\'');
+		String foundedType = ex.getValue().getClass().getName();
+		String expectedType = ex.getParameter().getGenericParameterType().getTypeName();
+//		List<String> expectedAndFoundTypes = RegexHelper.getTextBetweenByChar(ex.getMessage(), '\'');
 		
 		List<KeyValue> keyValues = new ArrayList<KeyValue>();
 		keyValues.add(new KeyValue("{{PARAMETER_NAME}}", ex.getName()));
-		keyValues.add(new KeyValue("{{FOUND_TYPE}}", expectedAndFoundTypes.get(0)));
-		keyValues.add(new KeyValue("{{EXPECTED_TYPE}}", expectedAndFoundTypes.get(1)));
+		keyValues.add(new KeyValue("{{FOUND_TYPE}}", foundedType));
+		keyValues.add(new KeyValue("{{EXPECTED_TYPE}}", expectedType));
 		ErrorResponse errorResponse = ErrorResponseMapper.map("NUMBER_FORMAT_MISMATCH", keyValues , "header");
 		return errorResponse;
 	}
@@ -124,13 +126,6 @@ public class ControllerAdvisor {
 	@ResponseBody
 	public ErrorResponse handleCoderbyteException(CoderbyteException fe) {
 		return ErrorResponseMapper.map(fe);
-	}
-
-	@ExceptionHandler(NotFoundException.class)
-	@ResponseStatus(HttpStatus.NOT_FOUND)
-	@ResponseBody
-	public ErrorResponse handleCoderbyteException(NotFoundException fe) {
-		return null;
 	}
 
 	@ExceptionHandler(MissingServletRequestParameterException.class)

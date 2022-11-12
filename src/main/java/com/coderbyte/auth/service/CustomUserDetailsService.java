@@ -8,21 +8,21 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.coderbyte.auth.model.entity.User;
-import com.coderbyte.user.repository.UserRepository;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-
-	@Autowired
-	private UserRepository userRepository;
 	
 	private User loadedUser;
+	
+	@Autowired
+	private PasswordEncoder bcryptEncoder;
 
 	@Override
-// 		This method will be called by spring secuarity and will do the following sequentailly:
+// 		This method will be called by spring security and will do the following sequentially:
 //			1- retrieveUser - load the user
 //			2- preAuthenticationChecks.check(user); - DefaultPreAuthenticationChecks: check for locked
 //			3- additionalAuthenticationChecks - checks the password
@@ -30,13 +30,17 @@ public class CustomUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		List<SimpleGrantedAuthority> roles = null;
 
-		User user = userRepository.findByUsernameIgnoreCase(username);
+		User user = getInMemoryUser();
 		if (user == null) {
 			throw new UsernameNotFoundException(null);			
 		}
 		roles = Arrays.asList(new SimpleGrantedAuthority("user"));
 		this.loadedUser = user;
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), true, true, user.getIsActivated() == 1, true, roles);
+		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), true, true, true, true, roles);
+	}
+
+	private User getInMemoryUser() {
+		return new User(1l, "admin", bcryptEncoder.encode("admin"));
 	}
 
 	public User getLoadedUser() {

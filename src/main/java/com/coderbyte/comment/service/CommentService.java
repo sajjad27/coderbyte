@@ -1,25 +1,22 @@
 package com.coderbyte.comment.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.coderbyte.comment.model.dao.response.CommentSummaryResponse;
-import com.coderbyte.comment.repository.CommentRepository;
+import com.coderbyte.comment.model.client.response.ClientCommentResponse;
 
 @Service
 public class CommentService {
-
+	
 	@Autowired
-	private CommentRepository commentRepository;
+	private CommentClient commentClient;
 
-	public List<CommentSummaryResponse> getAll() {
-		return this.commentRepository.findAllAsSummary();
+	public ClientCommentResponse[] getAll() {
+		return this.commentClient.getAllComments();
 	}
 
-	public List<CommentSummaryResponse> findCommentsByPostId(long parseLong) {
-		return this.commentRepository.findAllAsSummaryByPostIdId(parseLong);
+	public ClientCommentResponse[] getCommentsByPostId(Long postId) {
+		return this.commentClient.getCommentsByPostId(postId);
 	}
 
 }

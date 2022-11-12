@@ -32,10 +32,6 @@ public class AuthService {
 
 //	@Autowired
 //	private UserRepository userRepository;
-//	
-//	@Autowired
-//	private PasswordEncoder bcryptEncoder;
-
 
 	public AuthenticationResponse getAuthenticationResponse(AuthenticationRequest authenticationRequest) {
 		// authenticationManager.authenticate will call loadUserByUsername in
